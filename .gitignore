@@ -7,3 +7,7 @@
 # PyCharm project resources
 
 .idea/
+
+# uv resources
+
+*.egg-info

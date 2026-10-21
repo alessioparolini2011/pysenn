@@ -43,3 +43,4 @@ print(f"""
 You can also do an simple operations and store the result directly in the operand.\n
 Like add the same value to all numbers:\n
 {a_tensor.add_(5)}""")
+

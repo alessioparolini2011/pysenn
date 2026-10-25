@@ -1,5 +1,5 @@
-from src.autonn.sell.linear import *
+from pysenn.sell.linear import *
 
-from src.autonn.sell.filter import *
+from pysenn.sell.filter import *
 
 __all__ = ["ExpLayer", "FilterLayer"]

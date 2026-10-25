@@ -5,7 +5,7 @@ This module contains the class for the filter Linear Layer to adapt a SELL to ev
 """
 import torch
 
-from autonn.sell import ExpLayer
+from pysenn.sell import ExpLayer
 
 from torch.nn import functional as f
 

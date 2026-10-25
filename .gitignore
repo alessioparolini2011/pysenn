@@ -8,6 +8,9 @@
 
 .idea/
 
-# uv resources
+# package resources
 
 *.egg-info
+
+dist/
+

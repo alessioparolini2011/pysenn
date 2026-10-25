@@ -1,3 +1,3 @@
-from src.autonn.utils.randomdata import *
+from pysenn.utils.randomdata import *
 
 __all__ = ["random_xor"]

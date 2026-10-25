@@ -1,55 +1,68 @@
 """
 linear.py
 Authors: Alessio Parolini
-This file contains the resources to implement a SENN algorithm in PyTorch nn.Linear layers
+This file contains the resources to implement SELLs (Self Expanding Linear Layers) in a static neural network
 """
 
-__all__ = ["LinearLyr"]
+__all__ = ["ExpLayer"]
+
+import torch
+
+from torch.nn import functional as f
 
 from torch import nn
 
-class LinearLyr:
+class ExpLayer(nn.Module):
 
-    """
-    This class groups and handles the nn.Linear layers the user choose to add ad the SENN
-    """
+    def __init__(self, in_features:int, out_features:int, exp_rate:int = 4):
 
-    def __init__(self, fisher: str = "diagonal"):
+        """
+        :param in_features: the number of weights for neuron in the layer - don't change
+        :param out_features: the initial number of neurons - change over time
+        :param exp_rate: how many neuron adds every time the layer expands itself
+        """
 
-        self.layers = []
+        super().__init__()
 
-        variants = ["diagonal", "kfac"]
+        self.in_features = in_features
 
-        if fisher not in variants:
+        self.out_features = out_features
 
-            raise ValueError(
-                f"argument \"fisher\" has to be one of {", ".join(variants)}"
-            )
+        self.exp_rate = exp_rate
 
-    def __call__(self, layer:nn.Linear, add_filter_layer:bool = True)-> nn.Sequential:
+        self.weights = nn.Parameter(data=(torch.randn(self.out_features, self.in_features)))
 
-        if not isinstance(layer, nn.Linear):
+        self._expansion = 0
 
-            raise TypeError(
-                f"""argument \"layer\" has to be a nn.Linear instance
-                                                             ^^^^^^^^
-                """
-            )
+    def expand(self, expansion: int)-> None:
 
-        self.layers.append(layer)
+        """
+        Adds the new neurons, making expansion possible.
+        :expansion: there is a difference between exp_rate and _expansion (for future improvement), so I add expansion. Also is a better structure for FilterLayer
+        :return: None
+        """
 
-        if add_filter_layer:
+        self._expansion = expansion if expansion is not None else self.exp_rate
 
-            filter_layer = nn.Linear(in_features=layer.out_features, out_features=layer.out_features)
+        new_neurons = torch.randn(self._expansion, self.in_features)
 
-            return nn.Sequential(layer, filter_layer)
+        self.weights = nn.Parameter(data=torch.cat([self.weights.data, new_neurons], dim=0))
 
-        else:
+        print("Expansion done!")
 
-            return nn.Sequential(layer)
+    def forward(self, x):
 
-    def show(self)-> None:
+        """
+        This function uses a particular logic, because the first epoch with new parameters, they have to be 0,
+        because having no gradient they can increase the loss and ruin all the progress of the nn
+        :param x: the input tensor
+        :return: the layer output
+        """
 
-        for idx, layer in enumerate(self.layers):
+        out = f.linear(x, self.weights[:, :(self.weights.shape[1] - self._expansion)])
 
-            print(f"[{idx}] -> {layer}")
+        zeros = torch.zeros(self.out_features, self.exp_rate)
+
+        self.in_features += self.exp_rate
+
+        return torch.Tensor(torch.cat([out, zeros], dim=1))

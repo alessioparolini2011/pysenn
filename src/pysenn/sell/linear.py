@@ -48,6 +48,8 @@ class ExpLayer(nn.Module):
 
         self.weights = nn.Parameter(data=torch.cat([self.weights.data, new_neurons], dim=0))
 
+        self.out_features += self._expansion
+
         print("Expansion done!")
 
     def forward(self, x):
@@ -59,10 +61,10 @@ class ExpLayer(nn.Module):
         :return: the layer output
         """
 
-        out = f.linear(x, self.weights[:, :(self.weights.shape[1] - self._expansion)])
+        out = f.linear(x, self.weights[:(self.out_features - self._expansion)])
 
-        zeros = torch.zeros(self.out_features, self.exp_rate)
+        zeros = torch.zeros(x.size(0), self._expansion, device=x.device, dtype=x.dtype)
 
-        self.in_features += self.exp_rate
+        self._expansion = 0
 
-        return torch.Tensor(torch.cat([out, zeros], dim=1))
+        return torch.cat([out, zeros], dim=1)

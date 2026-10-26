@@ -6,15 +6,14 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [project]
-name = "autonn"
-version = "0.1.0"
+name = "pysenn"
+version = "0.2.0"
 requires-python = ">=3.14"
 authors = [
     {name = "Alessio Parolini", email = "alepar.ap9@gmail.com"}
 ]
-description = "autoNN - A Python package, based on PyTorch, to build self-accrescitive Neural Networks and train them with an optimezed process."
+description = "pysenn - A Python package, based on PyTorch, to build Self Expanding Neural Networks and train them with an optimezed process."
 readme = "README.md"
 dependencies = [
     "torch==2.14.1",
-    "numpy>=2.5.4",
 ]

@@ -3,13 +3,14 @@ module.py
 Authors: Alessio Parolini
 Contains the class that groups ExpLinear and FilterLayer for an easier implementation
 """
-from typing import Any
-
-import torch
 
 from torch import nn
 
-from pysenn.sell import ExpLayer, FilterLayer
+from torch.nn import functional as f
+
+from linear import ExpLayer
+
+from filter import FilterLayer
 
 class ExpModule(nn.Module):
 
@@ -23,7 +24,7 @@ class ExpModule(nn.Module):
 
         """
         Expand the whole structure
-        :param expansion: a parameter to specify expansion. If None uses the ExpLinear defalut
+        :param expansion: a parameter to specify expansion. If None uses the ExpLinear default
         :return: None
         """
 
@@ -36,7 +37,7 @@ class ExpModule(nn.Module):
     def forward(self, x):
 
         """
-        Process the x in the SELL structure
+        Process the x in the SELL structure (+ ReLU)
         :param x:
         :return:
         """
@@ -44,5 +45,7 @@ class ExpModule(nn.Module):
         for module in self.structure:
 
             x = module(x)
+
+            x = f.relu(x)
 
         return x

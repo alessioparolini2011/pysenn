@@ -3,9 +3,9 @@ filter.py
 Authors: Alessio Parolini
 This module contains the class for the filter Linear Layer to adapt a SELL to every NN
 """
-import torch
+from linear import ExpLayer
 
-from pysenn.sell import ExpLayer
+import torch
 
 from torch.nn import functional as f
 

@@ -7,8 +7,8 @@ where = ["src"]
 
 [project]
 name = "pysenn"
-version = "0.2.0"
-requires-python = ">=3.14"
+version = "0.4.0"
+requires-python = ">=3.12"
 authors = [
     {name = "Alessio Parolini", email = "alepar.ap9@gmail.com"}
 ]
@@ -16,4 +16,5 @@ description = "pysenn - A Python package, based on PyTorch, to build Self Expand
 readme = "README.md"
 dependencies = [
     "torch==2.14.1",
+    "numpy==2.1.0",
 ]

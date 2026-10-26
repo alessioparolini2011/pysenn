@@ -1,6 +1,6 @@
 ![autoNN logo](./assets/pysenn-logo.png)
 
-![Python](https://img.shields.io/badge/Python-3.14-FFD43B?style=for-the-badge&logo=python&logoColor=306998)
+![Python](https://img.shields.io/badge/Python-3.12-FFD43B?style=for-the-badge&logo=python&logoColor=306998)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.14-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=red)
 
 A Python package, based on PyTorch, to build self-expanding Neural Networks and train them with an optimized process.
@@ -53,7 +53,7 @@ Groups one ExpLayer + one FilterLayer (putting a ReLU between them) inside a nn.
 
 ## Quickstart
 
-**You need Python 3.14 on your machine**
+**You need Python 3.12 on your machine**
 
 To install the package, run:
 

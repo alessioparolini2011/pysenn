@@ -3,7 +3,7 @@ filter.py
 Authors: Alessio Parolini
 This module contains the class for the filter Linear Layer to adapt a SELL to every NN
 """
-from linear import ExpLayer
+from .linear import ExpLayer
 
 import torch
 

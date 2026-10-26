@@ -8,9 +8,9 @@ from torch import nn
 
 from torch.nn import functional as f
 
-from linear import ExpLayer
+from .linear import ExpLayer
 
-from filter import FilterLayer
+from .filter import FilterLayer
 
 class ExpModule(nn.Module):
 

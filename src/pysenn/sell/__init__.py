@@ -2,4 +2,6 @@ from pysenn.sell.linear import *
 
 from pysenn.sell.filter import *
 
-__all__ = ["ExpLayer", "FilterLayer"]
+from pysenn.sell.module import *
+
+__all__ = ["ExpLayer", "FilterLayer", "ExpModule"]

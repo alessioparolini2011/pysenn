@@ -14,11 +14,15 @@ from filter import FilterLayer
 
 class ExpModule(nn.Module):
 
-    def __init__(self, sell:ExpLayer, filter_layer:FilterLayer):
+    def __init__(self, in_features: int, out_features:int):
 
         super().__init__()
 
-        self.structure = nn.ModuleList([sell, filter_layer])
+        self.sell = ExpLayer(in_features, in_features)
+
+        self.filter_layer = FilterLayer(in_features, out_features)
+
+        self.structure = nn.ModuleList([self.sell, self.filter_layer])
 
     def expand(self, expansion: int)-> None:
 

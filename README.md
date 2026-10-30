@@ -1,4 +1,4 @@
-![WARNING]
+>[!WARNING]
 >**This repo is outdated: development moved to:**    
 >https://pypi.org/project/pyyeast/ (PyPI package)    
 >https://github.com/alessioparolini2011/PyYeast (GitHub repo)
@@ -88,7 +88,7 @@ x = module(x)
 print(x.size()) # out: 8, 26
 ```
 
-![WARNING]
+>[!WARNING]
 >Because of the self-expanding structure, for now **the package doesn't work with optimizers** (optimizers like ADAM have a gradients memory that crashes if you add new). The only way is **using SGD optimizer and recreating it every time you expand the neural network**. See below.
 
 Here's how you should do to use an SGD optimizer:
@@ -144,7 +144,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)  # CREATE A NEW OPTIMIZER!
 
 ```
 
-![TIP]
+>[!TIP]
 > Run in your terminal:
 > ```bash
 > pysenn

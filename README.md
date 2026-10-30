@@ -98,7 +98,7 @@ Here's how you should do to use an SGD optimizer:
 > ```bash
 > pysenn
 >```
-> to see the whole demonstration (click [here](https://github.com/alessioparolini2011/pysenn/blob/master/src/pysenn/demo/demo.py) for the full file)! You can also see a little preview of the demonstration file here:
+> to see the whole demonstration (**click [here](https://github.com/alessioparolini2011/pysenn/blob/master/src/pysenn/demo/demo.py) for the full file**)! You can also see a little preview of the demonstration file here:
 
 ```python
 

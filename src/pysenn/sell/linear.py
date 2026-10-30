@@ -50,8 +50,6 @@ class ExpLayer(nn.Module):
 
         self.out_features += self._expansion
 
-        print("Expansion done!")
-
     def forward(self, x):
 
         """

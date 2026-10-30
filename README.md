@@ -1,3 +1,8 @@
+>![WARNING]
+>**This repo is outdated: development moved to:**    
+>https://pypi.org/project/pyyeast/ (PyPI package)    
+>https://github.com/alessioparolini2011/PyYeast (GitHub repo)
+
 ![autoNN logo](./assets/pysenn-logo.png)
 
 ![Python](https://img.shields.io/badge/Python-3.12-FFD43B?style=for-the-badge&logo=python&logoColor=306998)
@@ -64,37 +69,87 @@ pip install pysenn
 As I showed before, you can use a ExpModule to implement a SELL in your nn:
 
 ```python
+import torch
 from pysenn.sell import ExpModule
 
-module = ExpModule(in_features=10, out_features=22) # use it like a normal layer, the features inside manage everything for you
+x = torch.randn(8, 10)
+
+module = ExpModule(in_features=10,
+                   out_features=22)  # use it like a normal layer, the features inside manage everything for you
+
+x = module(x) # use it like a normal module
+
+print(x.size()) # out: 8, 22
 
 module.expand(4) # add 4 neurons
 
-module(x) # use it like a normal nn.Module
+x = module(x)  
+
+print(x.size()) # out: 8, 26
 ```
 
 >![WARNING]
 >Because of the self-expanding structure, for now **the package doesn't work with optimizers** (optimizers like ADAM have a gradients memory that crashes if you add new). The only way is **using SGD optimizer and recreating it every time you expand the neural network**. See below.
 
-Here's how you should do to use a SGD optimizer:
+Here's how you should do to use an SGD optimizer:
 
 ```python
 
-import torch.optim as optim
+from torch import nn
+
+from torch import optim
 
 from pysenn.sell import ExpModule
 
+
+class MyModule(nn.Module):
+    
+    def __init__(self):
+        
+        super().__init__()
+        
+        self.relu = nn.ReLU()
+        
+        self.layer1 = nn.Linear(in_features=1, out_features=5)
+        
+        self.sell = ExpModule(in_features=5, out_features=10)
+        
+        self.layer3 = nn.Linear(in_features=10, out_features=1)
+        
+    def forward(self, x):
+        
+        x = self.layer1(x)
+        
+        x = self.relu(x)
+        
+        x = self.sell(x)
+        
+        x = self.relu(x)
+        
+        x = self.layer3(x)
+        
+        return x
+    
+model = MyModule()
+
 senn = ExpModule(in_features=5, out_features=10)
 
-optimizer = optim.SGD(model.parameters(), lr=0.01) # model is a fake nn.Module with static and self-expanding layers
+optimizer = optim.SGD(model.parameters(), lr=0.01)  # model is a fake nn.Module with static and self-expanding layers
 
-...
+... # training process
 
-senn.expand(4) # expand
+senn.expand(4)  # expand
 
-optimizer = optim.SGD(model.parameters(), lr=0.01) # CREATE A NEW OPTIMIZER!
+optimizer = optim.SGD(model.parameters(), lr=0.01)  # CREATE A NEW OPTIMIZER!
 
 ```
+
+>![TIP]
+> Run in your terminal:
+> ```bash
+> pysenn
+>```
+> to see a little demonstration in action!
 
 
 **Built with:**
@@ -113,6 +168,6 @@ Project: PySENN (formerly autoNN) - Self Expanding Neural Networks
 
 Focus: PyTorch, dynamic architectures, efficient training
 
-GitHub: github.com/alessioparolini2011/ [Alessio Parolini](https://github.com/alessioparolini2011/)
+GitHub: [Alessio Parolini](https://github.com/alessioparolini2011/)
 
 PyPI: pysenn

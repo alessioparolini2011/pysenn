@@ -93,6 +93,13 @@ print(x.size()) # out: 8, 26
 
 Here's how you should do to use an SGD optimizer:
 
+>[!TIP]
+> Run in your terminal:
+> ```bash
+> pysenn
+>```
+> to see the whole demonstration (click [here](https://github.com/alessioparolini2011/pysenn/blob/master/src/pysenn/demo/demo.py) for the full file)! You can also see a little preview of the demonstration file here:
+
 ```python
 
 from torch import nn
@@ -118,21 +125,11 @@ class MyModule(nn.Module):
         
     def forward(self, x):
         
-        x = self.layer1(x)
-        
-        x = self.relu(x)
-        
-        x = self.sell(x)
-        
-        x = self.relu(x)
-        
-        x = self.layer3(x)
+        # the model passes the input tensor in all the layers + relu
         
         return x
     
 model = MyModule()
-
-senn = ExpModule(in_features=5, out_features=10)
 
 optimizer = optim.SGD(model.parameters(), lr=0.01)  # model is a fake nn.Module with static and self-expanding layers
 
@@ -143,14 +140,7 @@ senn.expand(4)  # expand
 optimizer = optim.SGD(model.parameters(), lr=0.01)  # CREATE A NEW OPTIMIZER!
 
 ```
-
->[!TIP]
-> Run in your terminal:
-> ```bash
-> pysenn
->```
-> to see a little demonstration in action!
-
+## Credits
 
 **Built with:**
 - PyTorch - for all tensor operations, autograd and nn.Module base
@@ -158,7 +148,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01)  # CREATE A NEW OPTIMIZER!
 
 Without PyTorch this project would not be possible. Thanks to Hack Club for supporting student-built open source.
 
-## 6. Author
+## Author
 
 **Alessio Parolini**
 
